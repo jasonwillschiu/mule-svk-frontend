@@ -1,37 +1,44 @@
+// chat.js
 import { PUBLIC_API_URL } from '$env/static/public';
 
 const CHAT_ENDPOINT = `${PUBLIC_API_URL}/api/chat`;
 
-// Request configuration
 const defaultHeaders = {
   'Content-Type': 'application/json',
+  'Accept': 'application/json',
 };
 
-// Error handler
 const handleError = (error, operation) => {
   console.error(`Chat service error during ${operation}:`, error);
-  throw {
-    message: 'Failed to communicate with chat service',
-    operation,
-    originalError: error,
-  };
+  if (error.response) {
+    throw new Error(`Server error: ${error.response.status}`);
+  }
+  throw new Error('Failed to communicate with chat service');
 };
 
-// Send message to API
-export const sendMessage = async (message) => {
+export const sendMessage = async (message, filterDate) => { // Added filterDate parameter
   try {
+    const requestBody = { prompt: message };
+    if (filterDate) {
+      requestBody.filter = {
+        "key": "vector_cache_at",
+        "value": filterDate
+      };
+    }
+
     const response = await fetch(CHAT_ENDPOINT, {
       method: 'POST',
       headers: defaultHeaders,
-      body: JSON.stringify({ message }),
-    });
+      body: JSON.stringify(requestBody) // Use requestBody with filter
+    },
+    );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     handleError(error, 'sendMessage');
   }
