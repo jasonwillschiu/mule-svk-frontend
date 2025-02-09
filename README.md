@@ -1,38 +1,14 @@
-# sv
+# Sveltekit Chat Frontend for Mulesoft AI Chain
+This project is specifically for use with [Mulechain Smart Search](https://github.com/jasonwillschiu/mulechain-smart-search)
+It uses a background image to mock a client website.
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A chat interface allows us to chat with an LLM on the /api/chat endpoint
 
-## Creating a project
+We can also use the date filter to pass a date to the backend.
+If the date is more recent than existing data (In the Mulechain Smart Search project),
+this will a create an API call to the Mulesoft Exchange API to pull fresh data.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+# Quickstart
+1. Clone the Repo
+2. Install the app ```pnpm install```
+3. Run the app locally ```pnpm dev```
