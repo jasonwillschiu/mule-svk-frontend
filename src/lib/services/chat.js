@@ -1,7 +1,8 @@
 // chat.js
-import { PUBLIC_API_URL } from '$env/static/public';
+// if you deploy and need a dev/prod/more envs
+// import { PUBLIC_API_URL } from '$env/static/public';
 
-const CHAT_ENDPOINT = `${PUBLIC_API_URL}/api/chat`;
+const CHAT_ENDPOINT = `http://localhost:8081/api/chat`;
 
 const defaultHeaders = {
   'Content-Type': 'application/json',
